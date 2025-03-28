@@ -46,10 +46,15 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: "Use XCode 12 as default"
-        if: startsWith(matrix.os, 'macos')
-        run: |
-          sudo xcode-select --switch /Applications/Xcode_12.4.app
+      - name: "Set Xcode version"
+  if: startsWith(matrix.os, 'macos')
+  run: |
+    sudo xcode-select -p
+    sudo xcode-select --switch /Applications/Xcode_15.0.0.app || \
+    sudo xcode-select --switch /Applications/Xcode_14.3.app || \
+    sudo xcode-select --switch /Applications/Xcode_13.4.app || \
+    sudo xcode-select --switch /Applications/Xcode_12.5.app || \
+    echo "Using default Xcode version"
 
       - name: "Setup conan"
         run: |
