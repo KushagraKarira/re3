@@ -94,7 +94,7 @@ jobs:
 
       - name: "Download and build dependencies (Conan install)"
         run: |
-          conan install ${{ github.workspace }} re3/master@ -if build -o re3:audio=${{ matrix.audio }} -o librw:platform=${{ matrix.platform }} -o librw:gl3_gfxlib=${{ matrix.gl3_gfxlib || 'glfw' }} --build missing -pr:h ./host_profile -pr:b default -s re3:build_type=RelWithDebInfo -s librw:build_type=RelWithDebInfo
+          conan install ${{ github.workspace }} re3/master@ -if build -o re3:audio=${{ matrix.audio }} -o librw:platform=${{ matrix.platform }} -o librw:gl3_gfxlib=${{ matrix.gl3_gfxlib || 'glfw' }}
         env:
           CONAN_SYSREQUIRES_MODE: enabled
 
