@@ -23,7 +23,7 @@ jobs:
 #          - os: 'windows-latest'
 #            platform: 'd3d9'
 #            audio: 'miles'
-          - os: 'ubuntu-18.04'
+          - os: 'ubuntu-latest'
             platform: 'gl3'
             gl3_gfxlib: 'glfw'
             audio: 'openal'
@@ -42,16 +42,16 @@ jobs:
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.platform == 'ps2' || matrix.gl3_gfxlib == 'sdl2' || matrix.audio == 'miles' }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@master
         with:
           submodules: true
       - name: "Checkout Miles SDK Import Library project"
-        uses: actions/checkout@v2
+        uses: actions/checkout@master
         if: ${{ matrix.audio == 'miles' }}
         with:
           repository: 'withmorten/re3mss'
           path: 're3mss'
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@master
         with:
           python-version: '3.x'
       - name: "Use XCode 11 as default (conan-center-index does not provide XCode 12 binaries at the moment)"
@@ -110,7 +110,7 @@ jobs:
         run: |
           cpack -C RelWithDebInfo
       - name: "Archive binary package (github artifacts)"
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@master
         with:
           name: "${{ matrix.os }}-${{ matrix.platform }}"
           path: build/*.zip
